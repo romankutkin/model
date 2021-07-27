@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+    nginx:
+        image: nginx:1.21-alpine
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/var/www:ro
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+
+    php-fpm:
+        image: php:8.0-fpm-alpine
+        volumes:
+            - ./:/var/www
