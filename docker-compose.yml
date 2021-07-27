@@ -9,6 +9,7 @@ services:
             - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
 
     php-fpm:
-        image: php:8.0-fpm-alpine
+        build:
+            context: ./docker/php-fpm
         volumes:
             - ./:/var/www
