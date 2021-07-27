@@ -5,11 +5,11 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - ./:/var/www:ro
+            - ./:/var/www/html:ro
             - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
 
     php-fpm:
         build:
             context: ./docker/php-fpm
         volumes:
-            - ./:/var/www
+            - ./:/var/www/html
