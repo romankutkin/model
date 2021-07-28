@@ -13,3 +13,13 @@ services:
             context: ./docker/php-fpm
         volumes:
             - ./:/var/www/html
+
+    postgres:
+        image: postgres:13.3-alpine
+        restart: always
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: app
+        volumes:
+            - ./docker/postgres/data:/var/lib/postgresql/data
