@@ -1,0 +1,25 @@
+App\DataObject\UserRegisterCommand:
+    properties:
+        firstName:
+            - NotBlank: ~
+            - Length:
+                normalizer: 'trim'
+                max: 255
+
+        lastName:
+            - NotBlank: ~
+            - Length:
+                normalizer: 'trim'
+                max: 255
+
+        username:
+            - NotBlank: ~
+            - Length:
+                normalizer: 'trim'
+                max: 255
+
+        plainPassword:
+            - NotBlank: ~
+            - Length:
+                normalizer: 'trim'
+                max: 255
