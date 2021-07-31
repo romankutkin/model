@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataObject;
 
-class UserRegisterCommand
+class UserRegisterRequest
 {
     private string $firstName;
     private string $lastName;

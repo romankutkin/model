@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\DataObject\UserRegisterCommand;
+use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
 use App\Exception\ValidationException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -15,9 +15,9 @@ class UserModel
         private ValidatorInterface $validator
     ) {}
 
-    public function register(UserRegisterCommand $userRegisterCommand): User
+    public function register(UserRegisterRequest $registerRequest): User
     {
-        $violations = $this->validator->validate($userRegisterCommand);
+        $violations = $this->validator->validate($registerRequest);
 
         if (count($violations) > 0) {
             throw new ValidationException();

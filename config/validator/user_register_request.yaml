@@ -1,4 +1,4 @@
-App\DataObject\UserRegisterCommand:
+App\DataObject\UserRegisterRequest:
     properties:
         firstName:
             - NotBlank: ~
