@@ -28,7 +28,7 @@ class UserController extends AbstractController
             'json'
         );
 
-        $userService->register($registerRequest);
+        $user = $userService->register($registerRequest);
 
         return new JsonResponse(
             status: Response::HTTP_NO_CONTENT

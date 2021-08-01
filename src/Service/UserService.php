@@ -7,12 +7,14 @@ namespace App\Service;
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
 use App\Exception\ValidationException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserService
 {
     public function __construct(
-        private ValidatorInterface $validator
+        private ValidatorInterface $validator,
+        private UserPasswordHasherInterface $passwordHasher
     ) {}
 
     public function register(UserRegisterRequest $registerRequest): User
@@ -23,6 +25,17 @@ class UserService
             throw new ValidationException();
         }
 
-        return new User();
+        $user = new User();
+
+        $passwordHash = $this->passwordHasher->hashPassword($user, $registerRequest->getPlainPassword());
+
+        $user
+            ->setFirstName($registerRequest->getFirstName())
+            ->setLastName($registerRequest->getLastName())
+            ->setUsername($registerRequest->getUsername())
+            ->setPassword($passwordHash)
+        ;
+
+        return $user;
     }
 }
