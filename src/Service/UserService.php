@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Service;
 
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
 use App\Exception\ValidationException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UserModel
+class UserService
 {
     public function __construct(
         private ValidatorInterface $validator
