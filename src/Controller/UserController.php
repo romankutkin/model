@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataObject\UserRegisterRequest;
+use App\Manager\UserManager;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,6 +21,7 @@ class UserController extends AbstractController
     public function register(
         Request $request,
         UserService $userService,
+        UserManager $userManager,
         SerializerInterface $serializer
     ): JsonResponse {
         $registerRequest = $serializer->deserialize(
@@ -28,7 +30,8 @@ class UserController extends AbstractController
             'json'
         );
 
-        $user = $userService->register($registerRequest);
+        $user = $userService->create($registerRequest);
+        $userManager->register($user);
 
         return new JsonResponse(
             status: Response::HTTP_NO_CONTENT

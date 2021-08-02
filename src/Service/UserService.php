@@ -17,7 +17,7 @@ class UserService
         private UserPasswordHasherInterface $passwordHasher
     ) {}
 
-    public function register(UserRegisterRequest $registerRequest): User
+    public function create(UserRegisterRequest $registerRequest): User
     {
         $violations = $this->validator->validate($registerRequest);
 
