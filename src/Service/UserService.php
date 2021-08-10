@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
-use App\Exception\ValidationException;
+use App\Exception\ConstraintViolationException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -21,8 +21,8 @@ class UserService
     {
         $violations = $this->validator->validate($registerRequest);
 
-        if (count($violations) > 0) {
-            throw new ValidationException();
+        if ($violations->count() > 0) {
+            throw new ConstraintViolationException($violations);
         }
 
         $user = new User();

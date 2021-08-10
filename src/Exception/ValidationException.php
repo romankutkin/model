@@ -8,8 +8,4 @@ use Symfony\Component\Validator\Exception\RuntimeException;
 
 class ValidationException extends RuntimeException
 {
-    public function __construct()
-    {
-        parent::__construct('Validation failed.');
-    }
 }
