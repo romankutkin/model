@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace App\DataObject;
 
+use App\Validator\Compound as Assert;
+
 class UserRegisterRequest
 {
+    #[Assert\GivenNameRequirements]
     private string $firstName;
+
+    #[Assert\GivenNameRequirements]
     private string $lastName;
+
+    #[Assert\UsernameRequirements]
     private string $username;
+
+    #[Assert\PlainPasswordRequirements]
     private string $plainPassword;
 
     public function getFirstName(): string
