@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
-use App\Exception\ConstraintViolationException;
+use App\Validator\Exception\ConstraintViolationException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
