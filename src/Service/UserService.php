@@ -7,12 +7,14 @@ namespace App\Service;
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
 use App\Validator\Exception\ConstraintViolationException;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserService
 {
     public function __construct(
+        private EntityManagerInterface $entityManager,
         private ValidatorInterface $validator,
         private UserPasswordHasherInterface $passwordHasher
     ) {}
@@ -37,5 +39,16 @@ class UserService
         ;
 
         return $user;
+    }
+
+    public function save(User $user): void
+    {
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+    }
+
+    public function update(): void
+    {
+        $this->entityManager->flush();
     }
 }

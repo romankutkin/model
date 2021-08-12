@@ -21,7 +21,6 @@ class UserController extends AbstractController
     public function register(
         Request $request,
         UserService $userService,
-        UserManager $userManager,
         SerializerInterface $serializer
     ): JsonResponse {
         $registerRequest = $serializer->deserialize(
@@ -31,7 +30,7 @@ class UserController extends AbstractController
         );
 
         $user = $userService->create($registerRequest);
-        $userManager->register($user);
+        $userService->save($user);
 
         return new JsonResponse(
             status: Response::HTTP_NO_CONTENT
