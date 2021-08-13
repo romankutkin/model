@@ -15,27 +15,32 @@ class ExceptionListener
     {
         $exception = $event->getThrowable();
 
+        if ($exception instanceof ConstraintViolationException) {
+            $this->handleConstraintViolationException($event, $exception);
+        }
+    }
+
+    private function handleConstraintViolationException(ExceptionEvent $event, ConstraintViolationException $exception): void
+    {
         $response = new JsonResponse();
 
-        if ($exception instanceof ConstraintViolationException) {
-            $violations = $exception->getConstraintViolations();
-            $errors = [];
+        $violations = $exception->getConstraintViolations();
+        $errors = [];
 
-            foreach ($violations as $violation) {
-                $errors[] = [
-                    'code' => $violation->getCode(),
-                    'source' => [
-                        'pointer' => '/data/attributes/' . $violation->getPropertyPath(),
-                    ],
-                    'detail' => $violation->getMessage(),
-                ];
-            }
-
-            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            $response->setContent(\json_encode([
-                'errors' => $errors,
-            ]));
+        foreach ($violations as $violation) {
+            $errors[] = [
+                'code' => $violation->getCode(),
+                'source' => [
+                    'pointer' => '/data/attributes/' . $violation->getPropertyPath(),
+                ],
+                'detail' => $violation->getMessage(),
+            ];
         }
+
+        $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        $response->setContent(\json_encode([
+            'errors' => $errors,
+        ]));
 
         $event->setResponse($response);
     }
