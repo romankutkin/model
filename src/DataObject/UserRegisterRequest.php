@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\DataObject;
 
+use App\Contract\RequestInterface;
 use App\Validator\Compound as Assert;
 
-class UserRegisterRequest
+class UserRegisterRequest implements RequestInterface
 {
     #[Assert\GivenNameRequirements]
     private string $firstName;

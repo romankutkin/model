@@ -6,35 +6,26 @@ namespace App\Service;
 
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
-use App\Validator\Exception\ConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserService
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private ValidatorInterface $validator,
         private UserPasswordHasherInterface $passwordHasher
     ) {}
 
-    public function create(UserRegisterRequest $registerRequest): User
+    public function create(UserRegisterRequest $request): User
     {
-        $violations = $this->validator->validate($registerRequest);
-
-        if ($violations->count() > 0) {
-            throw new ConstraintViolationException($violations);
-        }
-
         $user = new User();
 
-        $passwordHash = $this->passwordHasher->hashPassword($user, $registerRequest->getPlainPassword());
+        $passwordHash = $this->passwordHasher->hashPassword($user, $request->getPlainPassword());
 
         $user
-            ->setFirstName($registerRequest->getFirstName())
-            ->setLastName($registerRequest->getLastName())
-            ->setUsername($registerRequest->getUsername())
+            ->setFirstName($request->getFirstName())
+            ->setLastName($request->getLastName())
+            ->setUsername($request->getUsername())
             ->setPassword($passwordHash)
         ;
 
