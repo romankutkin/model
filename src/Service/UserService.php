@@ -16,6 +16,11 @@ class UserService
         private UserPasswordHasherInterface $passwordHasher
     ) {}
 
+    public function register(UserRegisterRequest $request): void
+    {
+        $this->save($this->create($request));
+    }
+
     public function create(UserRegisterRequest $request): User
     {
         $user = new User();
