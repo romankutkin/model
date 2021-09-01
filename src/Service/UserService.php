@@ -31,7 +31,7 @@ class UserService
             ->setFirstName($request->getFirstName())
             ->setLastName($request->getLastName())
             ->setUsername($request->getUsername())
-            ->setPassword($passwordHash)
+            ->setPasswordHash($passwordHash)
         ;
 
         return $user;
