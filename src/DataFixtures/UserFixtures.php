@@ -1,21 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Service\PasswordHasher;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    private PasswordHasherInterface $passwordHasher;
-
-    public function __construct(PasswordHasherFactoryInterface $hasherFactory)
-    {
-        $this->passwordHasher = $hasherFactory->getPasswordHasher(User::class);
-    }
+    public function __construct(
+        private PasswordHasher $passwordHasher
+    ) {}
 
     public function load(ObjectManager $manager)
     {

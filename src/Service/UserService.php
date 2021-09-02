@@ -7,13 +7,12 @@ namespace App\Service;
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserService
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $passwordHasher
+        private PasswordHasher $passwordHasher
     ) {}
 
     public function register(UserRegisterRequest $request): void
@@ -25,13 +24,11 @@ class UserService
     {
         $user = new User();
 
-        $passwordHash = $this->passwordHasher->hashPassword($user, $request->getPlainPassword());
-
         $user
             ->setFirstName($request->getFirstName())
             ->setLastName($request->getLastName())
             ->setUsername($request->getUsername())
-            ->setPasswordHash($passwordHash)
+            ->setPasswordHash($this->passwordHasher->hash($request->getPlainPassword()))
         ;
 
         return $user;
