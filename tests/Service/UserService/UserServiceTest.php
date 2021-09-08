@@ -28,16 +28,12 @@ class UserServiceTest extends KernelTestCase
             'plainPassword' => 'secret',
         ];
 
-        $userRegisterRequest = new UserRegisterRequest();
-
-        $userRegisterRequest
-            ->setFirstName($data['firstName'])
-            ->setLastName($data['lastName'])
-            ->setUsername($data['username'])
-            ->setPlainPassword($data['plainPassword'])
-        ;
-
-        $user = $userService->create($userRegisterRequest);
+        $user = $userService->create(new UserRegisterRequest(
+            firstName: $data['firstName'],
+            lastName: $data['lastName'],
+            username: $data['username'],
+            plainPassword: $data['plainPassword']
+        ));
 
         $this->assertEquals($user->getFirstName(), $data['firstName']);
         $this->assertEquals($user->getLastName(), $data['lastName']);
