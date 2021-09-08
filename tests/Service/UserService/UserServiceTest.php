@@ -42,6 +42,6 @@ class UserServiceTest extends KernelTestCase
         $this->assertEquals($user->getFirstName(), $data['firstName']);
         $this->assertEquals($user->getLastName(), $data['lastName']);
         $this->assertEquals($user->getUsername(), $data['username']);
-        $this->assertEquals($user->getPassword(), $passwordHasher->hash($data['plainPassword']));
+        $this->assertEquals(true, $passwordHasher->verify($user->getPassword(), $data['plainPassword']));
     }
 }

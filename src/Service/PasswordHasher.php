@@ -21,4 +21,9 @@ class PasswordHasher
     {
         return $this->passwordHasher->hash($plainPassword);
     }
+
+    public function verify(string $hashedPassword, string $plainPassword): bool
+    {
+        return $this->passwordHasher->verify($hashedPassword, $plainPassword);
+    }
 }
