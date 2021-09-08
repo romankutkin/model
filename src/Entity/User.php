@@ -47,6 +47,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
+    public function __construct(
+        string $firstName,
+        string $lastName,
+        string $username,
+        string $passwordHash
+    ) {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->username = $username;
+        $this->password = $passwordHash;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -57,35 +69,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
     public function getUsername(): string
     {
         return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getUserIdentifier(): string
@@ -96,13 +87,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function setPasswordHash(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getRoles(): array

@@ -22,16 +22,12 @@ class UserService
 
     public function create(UserRegisterRequest $request): User
     {
-        $user = new User();
-
-        $user
-            ->setFirstName($request->getFirstName())
-            ->setLastName($request->getLastName())
-            ->setUsername($request->getUsername())
-            ->setPasswordHash($this->passwordHasher->hash($request->getPlainPassword()))
-        ;
-
-        return $user;
+        return new User(
+            firstName: $request->getFirstName(),
+            lastName: $request->getLastName(),
+            username: $request->getUsername(),
+            passwordHash: $this->passwordHasher->hash($request->getPlainPassword())
+        );
     }
 
     public function save(User $user): void
