@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\DataObject;
 
-use App\Contract\RequestInterface;
+use App\DataObject\Interface\DataTransferObject;
 use App\Validator\Compound as Assert;
 
-class UserRegisterRequest implements RequestInterface
+class UserRegisterRequest implements DataTransferObject
 {
     #[Assert\GivenNameRequirements]
     private string $firstName;
