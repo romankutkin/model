@@ -8,7 +8,7 @@ use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
-class UserService
+class UserModel
 {
     public function __construct(
         private EntityManagerInterface $entityManager,

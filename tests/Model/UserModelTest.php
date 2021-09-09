@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Service\UserService;
+namespace App\Tests\Model;
 
 use App\DataObject\UserRegisterRequest;
 use App\Service\PasswordHasher;
-use App\Service\UserService;
+use App\Service\UserModel;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserServiceTest extends KernelTestCase
+class UserModelTest extends KernelTestCase
 {
     public function testCreateUser()
     {
@@ -17,8 +17,8 @@ class UserServiceTest extends KernelTestCase
 
         $container = static::getContainer();
 
-        /** @var UserService $userService */
-        $userService = $container->get(UserService::class);
+        /** @var UserModel $userModel */
+        $userModel = $container->get(UserModel::class);
         $passwordHasher = $container->get(PasswordHasher::class);
 
         $data = [
@@ -28,7 +28,7 @@ class UserServiceTest extends KernelTestCase
             'plainPassword' => 'secret',
         ];
 
-        $user = $userService->create(new UserRegisterRequest(
+        $user = $userModel->create(new UserRegisterRequest(
             firstName: $data['firstName'],
             lastName: $data['lastName'],
             username: $data['username'],
