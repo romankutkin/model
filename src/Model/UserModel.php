@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Model;
 
 use App\DataObject\UserRegisterRequest;
 use App\Entity\User;
+use App\Service\PasswordHasher;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UserModel
